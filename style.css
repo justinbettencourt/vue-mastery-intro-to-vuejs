@@ -87,3 +87,7 @@ body {
     color: #16C0B0;
     text-decoration: underline;
   }
+
+  .outOfStock {
+	text-decoration: line-through;
+  }
