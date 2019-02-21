@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<title>Product App</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<body>
+		<div class="nav-bar"></div>
+		
+		<div id="app">
+			<div class="product">
+				<div class="product-image">
+					<img v-bind:src="image" alt="">
+				</div>
+				<div class="product-info">
+					<h1>{{ product }}</h1>
+					<span v-if="onSale">On Sale: {{ salePercentage }}% OFF</span>
+					<p v-if="inStock">In Stock</p>
+					<p v-else>Out of Stock</p>
+					<a v-bind:href="link" target="_blank">Link</a>
+
+					<ul>
+						<li v-for="detail in details">{{ detail }}</li>
+					</ul>
+
+					<ul>
+						<li v-for="size in sizes">{{ size }}</li>
+					</ul>
+
+					<div v-for="variant in variants" :key="variant.variantId">
+						<!-- <p>{{ variant.variantId }}</p> -->
+						<p>{{ variant.variantColor }}</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
