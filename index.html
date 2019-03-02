@@ -17,7 +17,7 @@
 					<h1>{{ product }}</h1>
 					<span v-if="onSale">On Sale: {{ salePercentage }}% OFF</span>
 					<p v-if="inStock">In Stock</p>
-					<p v-else :class="[!inStock ? disabledButton : '']">Out of Stock</p>
+					<p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
 					<a v-bind:href="link" target="_blank">Link</a>
 
 					<ul>
