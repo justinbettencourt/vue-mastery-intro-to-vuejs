@@ -1,25 +1,28 @@
 var app = new Vue({
 	el: '#app',
 	data: {
+		brand: 'Vue Mastery',
 		product: 'Socks',
 		description: 'A pair of warm, fuzzy socks.',
-		image: './assets/VueMasterySocksGreen.jpg',
+		selectedVariant: 0,
 		link: 'http://www.google.ca',
-		inStock: true,
-		inventory: 5,
-		onSale: true,
-		salePercentage: 30,
 		details: ["80% cotton", "20% polyester", "Gender-neutral"],
 		variants: [
 			{
 				variantId: 2234,
 				variantColor: 'green',
-				variantImage: './assets/VueMasterySocksGreen.jpg'
+				variantImage: './assets/VueMasterySocksGreen.jpg',
+				varientQuanitity: 5,
+				onSale: true,
+				salePercentage: 30,
 			},
 			{
 				variantId: 2235,
 				variantColor: 'blue',
-				variantImage: './assets/VueMasterySocksBlue.jpg'
+				variantImage: './assets/VueMasterySocksBlue.jpg',
+				varientQuanitity: 0,
+				onSale: false,
+				salePercentage: 20
 			}
 		],
 		sizes: ["Small", "Medium", "Large", "Extra Large"],
@@ -28,27 +31,26 @@ var app = new Vue({
 	methods: {
 		addToCart: function () {
 			this.cart += 1;
-			this.inventory -= 1;
-			this.updateButton();
 		},
-		removeFromCart: function () {
-			if (this.cart > 0) {
-				this.cart -= 1;
-				this.inventory += 1;
-			}
-			this.updateButton();
+		updateProduct: function (index) {
+			this.selectedVariant = index;
+			console.log(index);
+		}
+	},
+	// Computed: Results are cached until dependencies change.
+	computed: {
+		title() {
+			return this.brand + ' ' + this.product;
 		},
-		updateProduct: function (variantImage) {
-			this.image = variantImage;
+		image() {
+			return this.variants[this.selectedVariant].variantImage
 		},
-		updateButton: function () {
-			if (this.inventory <= 0) {
-				console.log("Stock False");
-				this.inStock = false;
-			} else {
-				console.log("Stock True");
-				this.inStock = true;
-			}
+		inStock() {
+			return this.variants[this.selectedVariant].varientQuanitity
+		},
+		salePercentage() {
+			if (this.variants[this.selectedVariant].onSale)
+			return 'On Sale: ' + this.variants[this.selectedVariant].salePercentage + '% OFF'
 		}
 	}
 })
